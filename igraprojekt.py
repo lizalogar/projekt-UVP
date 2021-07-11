@@ -1,5 +1,5 @@
 import random
-
+# da vidimo ce dela commit
 class Igra:
     def __init__(self):
         self.st_vrstic = 4
