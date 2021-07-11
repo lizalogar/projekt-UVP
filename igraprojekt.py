@@ -1,5 +1,5 @@
 import random
-# da vidimo ce dela commit
+
 class Igra:
     def __init__(self):
         self.st_vrstic = 4
@@ -31,20 +31,21 @@ class Igra:
             for i in range(len(self.st_balonov_v_vrstici)):
                 if self.st_balonov_v_vrstici[i] > 0:
                     st_pocenih = random.randint(1, self.st_balonov_v_vrstici[i])
-                    self.st_balonov_v_vrstici[i] -= st_pocenih
+                    if sum(self.st_balonov_v_vrstici) - st_pocenih != 0:
+                        self.st_balonov_v_vrstici[i] -= st_pocenih
 
 
-                    for j in range(len(self.baloni[i])):
-                        if st_pocenih > 0 and self.baloni[i][j] == 1:
-                            self.baloni[i][j] = 0
-                            st_pocenih -= 1
-                    self.kdo_je_na_vrsti = (self.kdo_je_na_vrsti % 2) + 1
-                    break
+                        for j in range(len(self.baloni[i])):
+                            if self.baloni[i][j] == 1 and st_pocenih > 0: 
+                                self.baloni[i][j] = 0
+                                st_pocenih -= 1
+                        self.kdo_je_na_vrsti = (self.kdo_je_na_vrsti % 2) + 1
+                        break
 
     # n je stevilo balonov, ki jih hocem pociti v i-ti vrstici. funkcija naj vrne True, ce je poteza uspesna, spremeni kdo je na vrsti in popoka balone. sicer vrne False
     def naredi_potezo_igralec(self, i, n):
         if self.kdo_je_na_vrsti == self.igralec:
-            if i >= len(self.baloni) or i < 0 or n > self.st_balonov_v_vrstici[i] or n < 1:
+            if i >= len(self.baloni) or i < 0 or n > self.st_balonov_v_vrstici[i] or n < 1 or sum(self.st_balonov_v_vrstici) - n == 0:
                 return False
             else:
                 poceni = 0
