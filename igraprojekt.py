@@ -30,9 +30,21 @@ class Igra:
         if self.kdo_je_na_vrsti == self.racunalnik:
             for i in range(len(self.st_balonov_v_vrstici)):
                 if self.st_balonov_v_vrstici[i] > 0:
-                    st_pocenih = random.randint(1, self.st_balonov_v_vrstici[i])
-                    if sum(self.st_balonov_v_vrstici) - st_pocenih != 0:
-                        self.st_balonov_v_vrstici[i] -= st_pocenih
+                        # ce so poceni vsi baloni razen nekaj balonov v eni vrstici, naj racunalnik poci vse razen enega
+                        if sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i]:
+                            st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                            self.st_balonov_v_vrstici[i] -= st_pocenih
+
+                        # ce je v neki vrstici en balon in v neki drugi eden ali vec, v ostalih pa 0 balonov, naj racunalnik poci vse v vrstici z vec baloni
+                        elif sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 1:
+                            st_pocenih = self.st_balonov_v_vrstici[i]
+                            self.st_balonov_v_vrstici[i] -= st_pocenih                  
+
+                        # v ostalih primerih naredi nakljucno veljavno potezo
+                        else:
+                            st_pocenih = random.randint(1, self.st_balonov_v_vrstici[i])
+                            if sum(self.st_balonov_v_vrstici) - st_pocenih != 0:
+                                self.st_balonov_v_vrstici[i] -= st_pocenih
 
 
                         for j in range(len(self.baloni[i])):
@@ -86,7 +98,7 @@ class Igra:
                     st = input('vnesi stevilo balonov, ki jih hoces pociti:')                    
             else:
                 self.naredi_potezo_racunalnik()
-
+            print('stevilo balonov v vrstici:', sum(self.st_balonov_v_vrstici))
             print(self)
             print()
         print('zmagal je', self.konec_igre())
