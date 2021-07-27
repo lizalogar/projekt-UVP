@@ -28,32 +28,60 @@ class Igra:
 
     def naredi_potezo_racunalnik(self):
         if self.kdo_je_na_vrsti == self.racunalnik:
-            for i in range(len(self.st_balonov_v_vrstici)):
+            #naredi zmagovalno potezo
+            for i in range(self.st_vrstic):
                 if self.st_balonov_v_vrstici[i] > 0:
-                        # ce so poceni vsi baloni razen nekaj balonov v eni vrstici, naj racunalnik poci vse razen enega
-                        if sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i]:
-                            st_pocenih = self.st_balonov_v_vrstici[i] - 1
-                            self.st_balonov_v_vrstici[i] -= st_pocenih
+                    # ce so poceni vsi baloni razen nekaj balonov v eni vrstici, naj racunalnik poci vse razen enega
+                    if sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i]:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih
 
-                        # ce je v neki vrstici en balon in v neki drugi eden ali vec, v ostalih pa 0 balonov, naj racunalnik poci vse v vrstici z vec baloni
-                        elif sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 1:
-                            st_pocenih = self.st_balonov_v_vrstici[i]
-                            self.st_balonov_v_vrstici[i] -= st_pocenih                  
+                        self.poci_balone(i, st_pocenih)                        
+                        return
 
-                        # v ostalih primerih naredi nakljucno veljavno potezo
-                        else:
-                            st_pocenih = random.randint(1, self.st_balonov_v_vrstici[i])
-                            if sum(self.st_balonov_v_vrstici) - st_pocenih != 0:
-                                self.st_balonov_v_vrstici[i] -= st_pocenih
+                    # ce je v neki vrstici en balon in v neki drugi eden ali vec, v ostalih pa 0 balonov, naj racunalnik poci vse v vrstici z vec baloni
+                    elif sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 1:
+                        st_pocenih = self.st_balonov_v_vrstici[i]
+                        self.st_balonov_v_vrstici[i] -= st_pocenih
+                    
+                        self.poci_balone(i, st_pocenih)
+                        return  
+                        
+            #naredi dobro potezo
+            for i in range(self.st_vrstic):
+                stevec = 0
+                if self.st_balonov_v_vrstici[i] > 0:
+                    if self.st_balonov_v_vrstici[i] == 1:
+                        stevec += 2
+                    elif self.st_balonov_v_vrstici[i] == 2:
+                        stevec += 3
+
+            for i in range(self.st_vrstic):
+                if self.st_balonov_v_vrstici[i] > 2 and stevec == 5 and sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 3:
+                    st_pocenih = self.st_balonov_v_vrstici[i] - 3
+                    self.st_balonov_v_vrstici[i] -= st_pocenih 
+
+                    self.poci_balone(i, st_pocenih)
+                    return                       
+
+            # v ostalih primerih naredi nakljucno veljavno potezo v prvi mozni vrstici
+            for i in range(self.st_vrstic):
+                if self.st_balonov_v_vrstici[i] > 0:            
+                    st_pocenih = random.randint(1, self.st_balonov_v_vrstici[i])
+                    if sum(self.st_balonov_v_vrstici) - st_pocenih != 0:
+                        self.st_balonov_v_vrstici[i] -= st_pocenih
+
+                        self.poci_balone(i, st_pocenih)
+                        return
 
 
-                        for j in range(len(self.baloni[i])):
-                            if self.baloni[i][j] == 1 and st_pocenih > 0: 
-                                self.baloni[i][j] = 0
-                                st_pocenih -= 1
-                        self.kdo_je_na_vrsti = (self.kdo_je_na_vrsti % 2) + 1
-                        break
+    def poci_balone(self, vrstica, st_pocenih):
 
+        for j in range(len(self.baloni[vrstica])):
+            if self.baloni[vrstica][j] == 1 and st_pocenih > 0: 
+                self.baloni[vrstica][j] = 0
+                st_pocenih -= 1
+        self.kdo_je_na_vrsti = (self.kdo_je_na_vrsti % 2) + 1
     # n je stevilo balonov, ki jih hocem pociti v i-ti vrstici. funkcija naj vrne True, ce je poteza uspesna, spremeni kdo je na vrsti in popoka balone. sicer vrne False
     def naredi_potezo_igralec(self, i, n):
         if self.kdo_je_na_vrsti == self.igralec:
