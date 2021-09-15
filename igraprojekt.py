@@ -28,6 +28,7 @@ class Igra:
 
     def naredi_potezo_racunalnik(self):
         if self.kdo_je_na_vrsti == self.racunalnik:
+            self.naredi_zmagovalno_kombinacijo()
             #naredi zmagovalno potezo
             for i in range(self.st_vrstic):
                 if self.st_balonov_v_vrstici[i] > 0:
@@ -73,6 +74,25 @@ class Igra:
 
                         self.poci_balone(i, st_pocenih)
                         return
+
+    def naredi_zmagovalno_kombinacijo(self):
+        sez_kombinacij = [1, 2, 3, 0]
+        seznam_tuplov = []
+        for i in range(4):
+            pomozen_list = []
+            for j in range(4):
+                if i != j:
+                    pomozen_list.append(self.st_balonov_v_vrstici[j])
+            seznam_tuplov.append((tuple(pomozen_list), self.st_balonov_v_vrstici[i]))
+
+        for tup in seznam_tuplov:
+            sez_indeksov = [0, 1, 2, 3]
+            for st in tup[0]:
+                if st in sez_kombinacij:
+                    sez_indeksov.remove(self.st_balonov_v_vrstici.index(st))
+                print(sez_indeksov)
+
+        print("seznam tuplov:", seznam_tuplov)
 
 
     def poci_balone(self, vrstica, st_pocenih):
