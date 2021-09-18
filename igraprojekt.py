@@ -24,11 +24,11 @@ class Igra:
             niz += s + '(' + str(self.st_balonov_v_vrstici[i]) + ')\n'
             s = ''
         return niz
-
+    
 
     def naredi_potezo_racunalnik(self):
         if self.kdo_je_na_vrsti == self.racunalnik:
-            self.naredi_zmagovalno_kombinacijo()
+            #self.naredi_zmagovalno_kombinacijo()
             #naredi zmagovalno potezo
             for i in range(self.st_vrstic):
                 if self.st_balonov_v_vrstici[i] > 0:
@@ -52,18 +52,36 @@ class Igra:
             for i in range(self.st_vrstic):
                 stevec = 0
                 if self.st_balonov_v_vrstici[i] > 0:
+                    #print(self.st_balonov_v_vrstici[i])
                     if self.st_balonov_v_vrstici[i] == 1:
                         stevec += 2
                     elif self.st_balonov_v_vrstici[i] == 2:
                         stevec += 3
-
+                #ko najdem vrstico z enim balonom in vrstico z dvema, naj stevec neha pristevati se ostale ustrezne vrstice
+                if stevec == 5:
+                    break
             for i in range(self.st_vrstic):
                 if self.st_balonov_v_vrstici[i] > 2 and stevec == 5 and sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 3:
                     st_pocenih = self.st_balonov_v_vrstici[i] - 3
                     self.st_balonov_v_vrstici[i] -= st_pocenih 
 
                     self.poci_balone(i, st_pocenih)
-                    return                       
+                    return      
+
+            #ce najdem samo eno vrstico z dvema balonoma, bo stevec ustrezen
+            stevec1 = 0
+            for i in range(self.st_vrstic):
+                
+                if self.st_balonov_v_vrstici[i] == 2:
+                    print(i, self.st_balonov_v_vrstici[i], stevec1)
+                    stevec1 += 1
+            #print(stevec1)
+            for i in range(self.st_vrstic):
+                if self.st_balonov_v_vrstici[i] > 2 and sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 2 and stevec1 == 1:
+                    st_pocenih = self.st_balonov_v_vrstici[i] - 2
+                    self.st_balonov_v_vrstici[i] -= st_pocenih
+                    self.poci_balone(i, st_pocenih)
+                    return
 
             # v ostalih primerih naredi nakljucno veljavno potezo v prvi mozni vrstici
             for i in range(self.st_vrstic):
@@ -75,24 +93,24 @@ class Igra:
                         self.poci_balone(i, st_pocenih)
                         return
 
-    def naredi_zmagovalno_kombinacijo(self):
-        sez_kombinacij = [1, 2, 3, 0]
-        seznam_tuplov = []
-        for i in range(4):
-            pomozen_list = []
-            for j in range(4):
-                if i != j:
-                    pomozen_list.append(self.st_balonov_v_vrstici[j])
-            seznam_tuplov.append((tuple(pomozen_list), self.st_balonov_v_vrstici[i]))
-
-        for tup in seznam_tuplov:
-            sez_indeksov = [0, 1, 2, 3]
-            for st in tup[0]:
-                if st in sez_kombinacij:
-                    sez_indeksov.remove(self.st_balonov_v_vrstici.index(st))
-                print(sez_indeksov)
-
-        print("seznam tuplov:", seznam_tuplov)
+    #def naredi_zmagovalno_kombinacijo(self):
+    #    sez_kombinacij = [1, 2, 3, 0]
+    #    seznam_tuplov = []
+    #    for i in range(4):
+    #        pomozen_list = []
+    #        for j in range(4):
+    #            if i != j:
+    #                pomozen_list.append(self.st_balonov_v_vrstici[j])
+    #        seznam_tuplov.append((tuple(pomozen_list), self.st_balonov_v_vrstici[i]))
+#
+    #    for tup in seznam_tuplov:
+    #        sez_indeksov = [0, 1, 2, 3]
+    #        for st in tup[0]:
+    #            if st in sez_kombinacij:
+    #                sez_indeksov.remove(self.st_balonov_v_vrstici.index(st))
+    #            print(sez_indeksov)
+#
+    #    print("seznam tuplov:", seznam_tuplov)
 
 
     def poci_balone(self, vrstica, st_pocenih):
@@ -146,7 +164,7 @@ class Igra:
                     st = input('vnesi stevilo balonov, ki jih hoces pociti:')                    
             else:
                 self.naredi_potezo_racunalnik()
-            print('stevilo balonov v vrstici:', sum(self.st_balonov_v_vrstici))
+            #print('stevilo balonov v vrstici:', sum(self.st_balonov_v_vrstici))
             print(self)
             print()
         print('zmagal je', self.konec_igre())
