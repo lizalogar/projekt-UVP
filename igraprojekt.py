@@ -50,7 +50,7 @@ class Igra:
                         
 
             
-            #naredi dobro potezo
+            # naredi dobro potezo
             # naredi kombinacijo 1 2 3 iz 1 2 0 *
             if 1 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
@@ -62,7 +62,7 @@ class Igra:
 
 
             # naredi kombinacijo 1 2 3
-            #ne dela se zelo dobro
+            # ne dela se zelo dobro
             if 1 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 3 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
                     if self.st_balonov_v_vrstici[i] > 3:
@@ -72,7 +72,7 @@ class Igra:
                         return      
 
             # naredi kombinacijo 1 2 3
-            #ne dela se zelo dobro
+            # ne dela se zelo dobro
             if 1 in self.st_balonov_v_vrstici and 3 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
                     if self.st_balonov_v_vrstici[i] > 3:
@@ -81,10 +81,15 @@ class Igra:
                         self.poci_balone(i, st_pocenih)
                         return    
 
-            # dodaj se ostalo kombinacijo v 123 (2 3 0)
-
-
-
+            # naredi kombinacijo 1 2 3
+            # ne dela zelo dobro
+            if 2 in self.st_balonov_v_vrstici and 3 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 3:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return                   
 
             # naredi kombinacijo 2 2
             if self.st_balonov_v_vrstici.count(2) == 2 and 0 in self.st_balonov_v_vrstici:
@@ -113,24 +118,6 @@ class Igra:
                         self.poci_balone(i, st_pocenih)
                         return    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             # v ostalih primerih naredi nakljucno veljavno potezo v prvi mozni vrstici
             for i in range(self.st_vrstic):
                 if self.st_balonov_v_vrstici[i] > 0:            
@@ -140,26 +127,6 @@ class Igra:
 
                         self.poci_balone(i, st_pocenih)
                         return
-
-    #def naredi_zmagovalno_kombinacijo(self):
-    #    sez_kombinacij = [1, 2, 3, 0]
-    #    seznam_tuplov = []
-    #    for i in range(4):
-    #        pomozen_list = []
-    #        for j in range(4):
-    #            if i != j:
-    #                pomozen_list.append(self.st_balonov_v_vrstici[j])
-    #        seznam_tuplov.append((tuple(pomozen_list), self.st_balonov_v_vrstici[i]))
-#
-    #    for tup in seznam_tuplov:
-    #        sez_indeksov = [0, 1, 2, 3]
-    #        for st in tup[0]:
-    #            if st in sez_kombinacij:
-    #                sez_indeksov.remove(self.st_balonov_v_vrstici.index(st))
-    #            print(sez_indeksov)
-#
-    #    print("seznam tuplov:", seznam_tuplov)
-
 
     def poci_balone(self, vrstica, st_pocenih):
 
