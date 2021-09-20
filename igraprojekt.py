@@ -48,40 +48,88 @@ class Igra:
                         self.poci_balone(i, st_pocenih)
                         return  
                         
+
+            
             #naredi dobro potezo
-            for i in range(self.st_vrstic):
-                stevec = 0
-                if self.st_balonov_v_vrstici[i] > 0:
-                    #print(self.st_balonov_v_vrstici[i])
-                    if self.st_balonov_v_vrstici[i] == 1:
-                        stevec += 2
-                    elif self.st_balonov_v_vrstici[i] == 2:
-                        stevec += 3
-                #ko najdem vrstico z enim balonom in vrstico z dvema, naj stevec neha pristevati se ostale ustrezne vrstice
-                if stevec == 5:
-                    break
-            for i in range(self.st_vrstic):
-                if self.st_balonov_v_vrstici[i] > 2 and stevec == 5 and sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 3:
-                    st_pocenih = self.st_balonov_v_vrstici[i] - 3
-                    self.st_balonov_v_vrstici[i] -= st_pocenih 
+            # naredi kombinacijo 1 2 3 iz 1 2 0 *
+            if 1 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 3:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 3
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return      
 
-                    self.poci_balone(i, st_pocenih)
-                    return      
 
-            #ce najdem samo eno vrstico z dvema balonoma, bo stevec ustrezen
-            stevec1 = 0
-            for i in range(self.st_vrstic):
-                
-                if self.st_balonov_v_vrstici[i] == 2:
-                    print(i, self.st_balonov_v_vrstici[i], stevec1)
-                    stevec1 += 1
-            #print(stevec1)
-            for i in range(self.st_vrstic):
-                if self.st_balonov_v_vrstici[i] > 2 and sum(self.st_balonov_v_vrstici) == self.st_balonov_v_vrstici[i] + 2 and stevec1 == 1:
-                    st_pocenih = self.st_balonov_v_vrstici[i] - 2
-                    self.st_balonov_v_vrstici[i] -= st_pocenih
-                    self.poci_balone(i, st_pocenih)
-                    return
+            # naredi kombinacijo 1 2 3
+            #ne dela se zelo dobro
+            if 1 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 3 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 3:
+                        st_pocenih = self.st_balonov_v_vrstici[i]
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return      
+
+            # naredi kombinacijo 1 2 3
+            #ne dela se zelo dobro
+            if 1 in self.st_balonov_v_vrstici and 3 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 3:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 2
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return    
+
+            # dodaj se ostalo kombinacijo v 123 (2 3 0)
+
+
+
+
+            # naredi kombinacijo 2 2
+            if self.st_balonov_v_vrstici.count(2) == 2 and 0 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] != 2 and self.st_balonov_v_vrstici[i] != 0:
+                        st_pocenih = self.st_balonov_v_vrstici[i]
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return    
+
+            # naredi kombinacijo 2 2
+            if self.st_balonov_v_vrstici.count(0) == 2 and 2 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 2:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 2
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return    
+            
+            # naredi kombinacijo 1 1 1
+            if self.st_balonov_v_vrstici.count(1) == 2 and 0 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 1:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             # v ostalih primerih naredi nakljucno veljavno potezo v prvi mozni vrstici
             for i in range(self.st_vrstic):
