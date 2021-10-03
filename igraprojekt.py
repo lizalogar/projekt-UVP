@@ -1,4 +1,6 @@
 import random
+import bottle
+
 
 class Igra:
     def __init__(self):
@@ -82,7 +84,7 @@ class Igra:
                         st_pocenih = self.st_balonov_v_vrstici[i] - 2
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
                         self.poci_balone(i, st_pocenih)
-                        return  
+                        return  cd
                     elif self.st_balonov_v_vrstici[i] == 3 and self.st_balonov_v_vrstici.count(3) == 2:
                         st_pocenih = self.st_balonov_v_vrstici[i] - 2
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
@@ -266,6 +268,14 @@ class Igra:
         print('zmagal je', self.konec_igre())
 
 
+@bottle.get('/')
+def osnovni_zaslon():
+    return bottle.template(
+        'osnovni_zaslon.tpl',
+        zamujena=6
+    )
+
+bottle.run(debug=True, reloader=True)
 
 igra = Igra()
 print(igra)
