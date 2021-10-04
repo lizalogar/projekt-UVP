@@ -23,10 +23,11 @@
 
     <div style="text-align: center;">
         <h1>Igra</h1>
-        <h2>*
-        <br>* * *
-        <br>* * * * *
-        <br>* * * * * * *
+        <h2>
+          {{v1}}<br>
+          {{v2}}<br>
+          {{v3}}<br>
+          {{v4}}
         </h2>
 
     </div>

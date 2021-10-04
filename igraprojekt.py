@@ -268,15 +268,6 @@ class Igra:
         print('zmagal je', self.konec_igre())
 
 
-@bottle.get('/')
-def osnovni_zaslon():
-    return bottle.template(
-        'osnovni_zaslon.tpl',
-        zamujena=6
-    )
-
-bottle.run(debug=True, reloader=True)
-
 igra = Igra()
 print(igra)
 
