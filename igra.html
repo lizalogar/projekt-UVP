@@ -1,0 +1,68 @@
+
+<html>
+  <head>
+    <title>Igra z balončki</title>
+  </head>
+  <body>
+    <style>
+        h1 {height: 300px;
+        line-height: 536px;
+        text-align: center}
+        h2 {height: 10px;
+        line-height: 10px;
+        text-align: center}
+        p {height: 10px;
+        text-align: center}
+
+        button {height: 30px;
+        text-align: center;
+        }
+        
+
+    </style>
+
+    <div style="text-align: center;">
+      <h1>Igra</h1>
+      % if napaka:
+      <h3>{{ napaka }}</h3>
+      % end
+      <h2>
+          % for vrstica in stanje:
+          <h2>
+          % for balon in vrstica:
+          % if balon == 1:
+          o
+          % else:
+          -
+          % end
+          % end
+          </h2>
+          % end
+        </h2>
+    </div>
+    <div class="block", style="text-align: center">
+      <form action="/igra/" method="POST">
+        <ul> 
+          <li>Vnesi vrstico:
+            <input class="input" name="vrstica" type="text" placeholder="vpiši vrstico, v kateri boš počil/a balone">
+          </li>
+          <li>Vnesi število balonov, ki jih hočeš počiti:
+            <input class="input" name="baloni" type="text" placeholder="vpiši število balonov, ki jih boš počil">
+          </li>
+          <li>
+            <input type="submit" value="Potrdi potezo">
+          </li>    
+        </ul>
+      </form>
+    </div>
+  
+
+    <div style="text-align: center;">  
+
+        <form action="/" method="get">
+        <button type="submit">Vrni se na prvo stran</button>
+        </form>
+    </div>
+
+  </body>
+</html>

@@ -1,9 +1,9 @@
-
 import bottle
 import os
 from datetime import date
-from model import Stanje, Opravilo, Spisek
+from model import Igra
 
+igra_pokanje_balonckov = Igra()
 
 def nalozi_uporabnikovo_stanje():
     uporabnisko_ime = bottle.request.get_cookie("uporabnisko_ime")
@@ -20,15 +20,9 @@ def shrani_uporabnikovo_stanje(stanje):
 
 @bottle.get("/")
 def osnovna_stran():
-    stanje = nalozi_uporabnikovo_stanje()
-    return bottle.template(
-        "osnovni_zaslon.tpl",
-        neopravljena=stanje.stevilo_zamujenih(),
-        opravila=stanje.aktualni_spisek.opravila if stanje.aktualni_spisek else [],
-        spiski=stanje.spiski,
-        aktualni_spisek=stanje.aktualni_spisek,
-        uporabnisko_ime=bottle.request.get_cookie("uporabnisko_ime"),
-    )
+    global igra_pokanje_balonckov
+    igra_pokanje_balonckov = Igra()
+    return bottle.template("osnovni_zaslon.html")
 
 
 @bottle.get("/registracija/")
@@ -72,9 +66,25 @@ def odjava_post():
 
 
 @bottle.get('/igra/')
-def igra():
-    return bottle.template(
-    'igra.tpl')
+def igra_get():
+    return bottle.template('igra.html', 
+    stanje = igra_pokanje_balonckov.baloni, 
+    st_balonov_v_vrstici = igra_pokanje_balonckov.st_balonov_v_vrstici, 
+    kdo_je_na_vrsti = igra_pokanje_balonckov.kdo_je_na_vrsti,
+    racunalnik = igra_pokanje_balonckov.racunalnik,
+    igralec = igra_pokanje_balonckov.igralec,
+    napaka=None
+    )
+
+@bottle.post("/igra/")
+def igra_post():
+    vrstica = int(bottle.request.forms.get("vrstica"))
+    stevilka = int(bottle.request.forms.get("baloni"))
+    try:
+        igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
+        bottle.redirect("/igra/")
+    except:
+        return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni,  napaka="Neveljavna poteza")    
 
 @bottle.error(404)
 def error_404(error):
