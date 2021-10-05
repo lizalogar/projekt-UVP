@@ -86,6 +86,7 @@ def igra_post():
     except IndexError as e:
         return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="neveljavna poteza")    
 
+
 @bottle.error(404)
 def error_404(error):
     return "Ta stran ne obstaja!"

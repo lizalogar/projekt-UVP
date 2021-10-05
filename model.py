@@ -225,7 +225,7 @@ class Igra:
     
     def naredi_potezo_igralec(self, i, n):
         if self.kdo_je_na_vrsti == self.igralec:
-            if i >= len(self.baloni) or i < 0 or n > self.st_balonov_v_vrstici[i] or n < 1 or sum(self.st_balonov_v_vrstici) - n == 0:
+            if i >= len(self.baloni) or i < 0 or n > self.st_balonov_v_vrstici[i] or n < 1 or sum(self.st_balonov_v_vrstici) - n == 0 or isinstance(i, int) == False or isinstance(i, int) == False:
                 return False
             else:
                 poceni = 0

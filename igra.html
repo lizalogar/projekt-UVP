@@ -23,7 +23,7 @@
     </style>
 
     <div style="text-align: center;">
-      <h1>Igra</h1>
+      <h1 class="has-background-warning-light title is-1">Igra</h1>
       % if napaka:
       <h3>{{ napaka }}</h3>
       % end
@@ -50,19 +50,18 @@
           <li>Vnesi število balonov, ki jih hočeš počiti:
             <input class="input" name="baloni" type="text" placeholder="vpiši število balonov, ki jih boš počil">
           </li>
-          <li>
-            <input type="submit" value="Potrdi potezo">
-          </li>    
         </ul>
+      <button class="button is-danger is-light" type="submit">Potrdi</button>
       </form>
     </div>
 
     <div style="text-align: center;">  
 
         <form action="/" method="get">
-        <button type="submit">Vrni se na prvo stran</button>
+        <button class="button is-danger is-light" type="submit">Vrni se na prvo stran</button>
         </form>
     </div>
 
   </body>
 </html>
+
