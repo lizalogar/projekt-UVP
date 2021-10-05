@@ -56,6 +56,88 @@ class Igra:
 
             
             # naredi dobro potezo
+            # iz 0 3 5 7 naredi 0 2 5 7
+            if self.st_balonov_v_vrstici == [0, 3, 5, 7]:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] == 3:
+                        st_pocenih = 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+            # vse moznosti za 0 1 5 4:          
+            # iz 0 k 5 4 naredi 0 1 5 4
+            if 0 in self.st_balonov_v_vrstici and 5 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 1 and self.st_balonov_v_vrstici[i] != 5 and self.st_balonov_v_vrstici[i] != 7:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+                    elif (self.st_balonov_v_vrstici[i] == 5 and self.st_balonov_v_vrstici.count(5) == 2) or (self.st_balonov_v_vrstici[i] == 4 and self.st_balonov_v_vrstici.count(4) == 2):     
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return   
+            # iz 0 1 k 4 naredi 0 1 5 4 
+            if 0 in self.st_balonov_v_vrstici and 1 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] == 6 or self.st_balonov_v_vrstici[i] == 7:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 5
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return         
+
+            # iz 0 1 5 k naredi 0 1 5 4
+            if 0 in self.st_balonov_v_vrstici and 5 in self.st_balonov_v_vrstici and 1 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 4 and self.st_balonov_v_vrstici[i] != 5:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 4
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+                    elif self.st_balonov_v_vrstici[i] == 5 and self.st_balonov_v_vrstici.count(5) == 2:     
+                        st_pocenih = 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return  
+
+            # vse moznosti za narediti 0 2 4 6
+            # iz 0 k 4 7 naredi 0 2 4 6
+            if 0 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici and 7 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 2 and self.st_balonov_v_vrstici[i] != 4 and self.st_balonov_v_vrstici[i] != 7:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 2
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+                    elif (self.st_balonov_v_vrstici[i] == 4 and self.st_balonov_v_vrstici.count(4) == 2) or (self.st_balonov_v_vrstici[i] == 7 and self.st_balonov_v_vrstici.count(7) == 2):     
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 2
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return   
+            # iz 0 2 k 6 naredi 0 2 4 6
+            if 0 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 6 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 4 and self.st_balonov_v_vrstici[i] != 6:
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 4
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return         
+                    elif (self.st_balonov_v_vrstici[i] == 6 and self.st_balonov_v_vrstici.count(6) == 2):     
+                        st_pocenih = 2
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return   
+            # iz 0 2 4 7 naredi 0 2 4 6
+            if set(self.st_balonov_v_vrstici) == {2, 4, 7, 0}:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] == 7:
+                        st_pocenih = 1
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+
+                                
             # naredi kombinacijo 1 2 3 iz 1 2 0 *
             if 1 in self.st_balonov_v_vrstici and 2 in self.st_balonov_v_vrstici and 0 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
