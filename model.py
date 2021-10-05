@@ -276,7 +276,7 @@ class Igra:
 
         if self.konec_igre() == 0: 
             if self.naredi_potezo_igralec(i, n) == False:
-                raise IndexError("Neveljavna poteza! poskusi ponovno")
+                raise IndexError("Neveljavna poteza")
 
             self.naredi_potezo_racunalnik()
 

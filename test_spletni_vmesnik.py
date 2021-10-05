@@ -78,13 +78,13 @@ def igra_get():
 
 @bottle.post("/igra/")
 def igra_post():
-    vrstica = int(bottle.request.forms.get("vrstica"))
+    vrstica = int(bottle.request.forms.get("vrstica")) - 1
     stevilka = int(bottle.request.forms.get("baloni"))
     try:
         igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
         bottle.redirect("/igra/")
-    except:
-        return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni,  napaka="Neveljavna poteza")    
+    except IndexError as e:
+        return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="neveljavna poteza")    
 
 @bottle.error(404)
 def error_404(error):
