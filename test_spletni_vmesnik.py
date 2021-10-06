@@ -78,14 +78,18 @@ def igra_get():
 
 @bottle.post("/igra/")
 def igra_post():
-    vrstica = int(bottle.request.forms.get("vrstica")) - 1
-    stevilka = int(bottle.request.forms.get("baloni"))
     try:
+        vrstica = int(bottle.request.forms.get("vrstica")) - 1
+        stevilka = int(bottle.request.forms.get("baloni"))
+
         igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
         bottle.redirect("/igra/")
-    except IndexError as e:
-        return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="neveljavna poteza")    
+    except (IndexError, ValueError):
+        return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="Neveljavna poteza! Poskusi ponovno.")    
 
+@bottle.route('/static/<filename:path>')
+def send_static(filename):
+    return bottle.static_file(filename, root='static')
 
 @bottle.error(404)
 def error_404(error):

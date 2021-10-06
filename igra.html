@@ -6,7 +6,7 @@
   </head>
   <body>
     <style>
-        h1 {height: 300px;
+        h1 {padding-top: 100px;
         line-height: 536px;
         text-align: center}
         h2 {height: 10px;
@@ -27,19 +27,21 @@
       % if napaka:
       <h3>{{ napaka }}</h3>
       % end
-      <h2>
+      <div>
           % for vrstica in stanje:
-          <h2>
-          % for balon in vrstica:
-          % if balon == 1:
-          o
-          % else:
-          -
+          <div class="columns">
+            <div class="column">
+              % for balon in vrstica:
+              % if balon == 1:
+              <img src="/static/baloncek.png" width="30px" height="30px">
+              % else:
+              -
+              % end
+              % end
+            </div>
+          </div>
           % end
-          % end
-          </h2>
-          % end
-        </h2>
+        </div>
     </div>
     <div class="block", style="text-align: center">
       <form action="/igra/" method="POST">
@@ -48,7 +50,7 @@
             <input class="input" name="vrstica" type="text" placeholder="vpiši vrstico, v kateri boš počil/a balone">
           </li>
           <li>Vnesi število balonov, ki jih hočeš počiti:
-            <input class="input" name="baloni" type="text" placeholder="vpiši število balonov, ki jih boš počil">
+            <input class="input" name="baloni" type="text" placeholder="vpiši število balonov, ki jih boš počil/a">
           </li>
         </ul>
       <button class="button is-danger is-light" type="submit">Potrdi</button>
