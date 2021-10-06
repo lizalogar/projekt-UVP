@@ -79,10 +79,11 @@ class Igra:
             if set(self.st_balonov_v_vrstici) == {0, 2, 5, 7}:
                 for i in range(self.st_vrstic):
                     if self.st_balonov_v_vrstici[i] == 2:
-                        st_pocenih = 1
+                        st_pocenih = self.st_balonov_v_vrstici[i] - 1
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
                         self.poci_balone(i, st_pocenih)
-                        return          
+                        return     
+  
 
             # vse moznosti da naredim 1 1 5 5       
             # iz 1 k 5 5 naredi 1 1 5 5
@@ -167,7 +168,7 @@ class Igra:
             # iz 0 k 5 4 naredi 0 1 5 4
             if 0 in self.st_balonov_v_vrstici and 5 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
-                    if self.st_balonov_v_vrstici[i] > 1 and self.st_balonov_v_vrstici[i] != 5 and self.st_balonov_v_vrstici[i] != 7:
+                    if self.st_balonov_v_vrstici[i] > 1 and self.st_balonov_v_vrstici[i] != 5 and self.st_balonov_v_vrstici[i] != 4:
                         st_pocenih = self.st_balonov_v_vrstici[i] - 1
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
                         self.poci_balone(i, st_pocenih)
