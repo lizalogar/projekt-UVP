@@ -214,15 +214,30 @@ class Igra:
                         self.poci_balone(i, st_pocenih)
                         return 
             # vse moznosti za narediti 0 2 4 6
-            # iz 0 k 4 7 naredi 0 2 4 6
-            if 0 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici and 7 in self.st_balonov_v_vrstici:
+
+            #iz k 2 4 6 naredi 0 2 4 6
+            if 2 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici and 6 in self.st_balonov_v_vrstici:
                 for i in range(self.st_vrstic):
-                    if self.st_balonov_v_vrstici[i] > 2 and self.st_balonov_v_vrstici[i] != 4 and self.st_balonov_v_vrstici[i] != 7:
+                    if self.st_balonov_v_vrstici[i] > 0 and self.st_balonov_v_vrstici[i] != 4 and self.st_balonov_v_vrstici[i] != 6 and self.st_balonov_v_vrstici[i] != 2:
+                        st_pocenih = self.st_balonov_v_vrstici[i]
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return 
+                    elif (self.st_balonov_v_vrstici[i] == 4 and self.st_balonov_v_vrstici.count(4) == 2) or (self.st_balonov_v_vrstici[i] == 6 and self.st_balonov_v_vrstici.count(6) == 2) or (self.st_balonov_v_vrstici[i] == 2 and self.st_balonov_v_vrstici.count(2) == 2):     
+                        st_pocenih = self.st_balonov_v_vrstici[i]
+                        self.st_balonov_v_vrstici[i] -= st_pocenih 
+                        self.poci_balone(i, st_pocenih)
+                        return   
+
+            # iz 0 k 4 6 naredi 0 2 4 6
+            if 0 in self.st_balonov_v_vrstici and 4 in self.st_balonov_v_vrstici and 6 in self.st_balonov_v_vrstici:
+                for i in range(self.st_vrstic):
+                    if self.st_balonov_v_vrstici[i] > 2 and self.st_balonov_v_vrstici[i] != 4 and self.st_balonov_v_vrstici[i] != 6:
                         st_pocenih = self.st_balonov_v_vrstici[i] - 2
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
                         self.poci_balone(i, st_pocenih)
                         return 
-                    elif (self.st_balonov_v_vrstici[i] == 4 and self.st_balonov_v_vrstici.count(4) == 2) or (self.st_balonov_v_vrstici[i] == 7 and self.st_balonov_v_vrstici.count(7) == 2):     
+                    elif (self.st_balonov_v_vrstici[i] == 4 and self.st_balonov_v_vrstici.count(4) == 2) or (self.st_balonov_v_vrstici[i] == 6 and self.st_balonov_v_vrstici.count(6) == 2):     
                         st_pocenih = self.st_balonov_v_vrstici[i] - 2
                         self.st_balonov_v_vrstici[i] -= st_pocenih 
                         self.poci_balone(i, st_pocenih)
@@ -442,6 +457,7 @@ class Igra:
 
     # funkcija vrne 1, ce zmaga racunalnik, 2 ce zmaga igralec in 0 ce igre se ni konec
     def konec_igre(self):
+        print('baloni', self.st_balonov_v_vrstici, 'kdo je na vrsti', self.kdo_je_na_vrsti)
         if sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 2:
             return 1
         elif sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 1:
@@ -454,6 +470,7 @@ class Igra:
         # self.kdo_je_na_vrsti = random.randint(1, 2) 
 
         print('------------------------')
+
         if self.kdo_je_na_vrsti == 1:
             print('zacne igralec', self.racunalnik)
         else:
@@ -469,8 +486,9 @@ class Igra:
                     st = input('vnesi stevilo balonov, ki jih hoces pociti:')                    
             else:
                 self.naredi_potezo_racunalnik()
-            #print('stevilo balonov v vrstici:', sum(self.st_balonov_v_vrstici))
+            print('stevilo balonov v vrstici:', sum(self.st_balonov_v_vrstici))
             print(self)
+
             print()
         print('zmagal je', self.konec_igre())
         
@@ -482,6 +500,8 @@ class Igra:
                 raise IndexError("Neveljavna poteza")
 
             self.naredi_potezo_racunalnik()
+
+
 
 if __name__ == "__main__":
     igra = Igra()
