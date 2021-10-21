@@ -14,32 +14,36 @@ def osnovna_stran():
 
 @bottle.get('/igra/')
 def igra_get():
-    return bottle.template('igra.html', 
-    stanje = igra_pokanje_balonckov.baloni, 
-    st_balonov_v_vrstici = igra_pokanje_balonckov.st_balonov_v_vrstici, 
-    kdo_je_na_vrsti = igra_pokanje_balonckov.kdo_je_na_vrsti,
-    racunalnik = igra_pokanje_balonckov.racunalnik,
-    igralec = igra_pokanje_balonckov.igralec,
-    napaka=None
+    return bottle.template(
+        'igra.html', 
+        stanje = igra_pokanje_balonckov.baloni, 
+        st_balonov_v_vrstici = igra_pokanje_balonckov.st_balonov_v_vrstici, 
+        kdo_je_na_vrsti = igra_pokanje_balonckov.kdo_je_na_vrsti,
+        racunalnik = igra_pokanje_balonckov.racunalnik,
+        igralec = igra_pokanje_balonckov.igralec,
+        napaka=None
     )
 
 @bottle.post("/igra/")
 def igra_post():
-    print(igra_pokanje_balonckov.konec_igre())
-
     try:
-        
+        print('zmagovalec', igra_pokanje_balonckov.zmagovalec, 'konec igre', igra_pokanje_balonckov.konec_igre())
+        if igra_pokanje_balonckov.konec_igre() == 1:
+            bottle.redirect("/koncna_stran_poraz/")
+        elif igra_pokanje_balonckov.konec_igre() == 2:
+            bottle.redirect("/koncna_stran_zmaga/")
+
         vrstica = int(bottle.request.forms.get("vrstica")) - 1
         stevilka = int(bottle.request.forms.get("baloni"))
 
         igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
+        print('zmagovalec', igra_pokanje_balonckov.zmagovalec, 'konec igre', igra_pokanje_balonckov.konec_igre())
         if igra_pokanje_balonckov.konec_igre() == 1:
             bottle.redirect("/koncna_stran_poraz/")
         elif igra_pokanje_balonckov.konec_igre() == 2:
             bottle.redirect("/koncna_stran_zmaga/")
         else:
             bottle.redirect("/igra/")
-
     except (IndexError, ValueError):
         return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="Neveljavna poteza! Poskusi ponovno.")    
 

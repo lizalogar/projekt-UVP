@@ -10,6 +10,7 @@ class Igra:
             self.baloni.append([1 for k in range(2 * i + 1)])
         self.st_balonov_v_vrstici = [sum(self.baloni[i]) for i in range(self.st_vrstic)]
         self.racunalnik = 1
+        self.zmagovalec = 0
         self.igralec = 2
         self.kdo_je_na_vrsti = random.randint(1, 2)
         if self.kdo_je_na_vrsti == self.racunalnik:
@@ -453,11 +454,16 @@ class Igra:
                         poceni += 1
                 self.st_balonov_v_vrstici[i] -= n
                 self.kdo_je_na_vrsti = (self.kdo_je_na_vrsti % 2) + 1
+
+                if self.konec_igre() > 0:
+                    self.zmagovalec = self.konec_igre()
+
                 return True
+
 
     # funkcija vrne 1, ce zmaga racunalnik, 2 ce zmaga igralec in 0 ce igre se ni konec
     def konec_igre(self):
-        print('baloni', self.st_balonov_v_vrstici, 'kdo je na vrsti', self.kdo_je_na_vrsti)
+        # print('baloni', self.st_balonov_v_vrstici, 'kdo je na vrsti', self.kdo_je_na_vrsti)
         if sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 2:
             return 1
         elif sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 1:
@@ -492,14 +498,19 @@ class Igra:
             print()
         print('zmagal je', self.konec_igre())
         
-    def igraj_spletni_vmesnik(self, i, n):
-        # self.kdo_je_na_vrsti = random.randint(1, 2) 
 
+    def igraj_spletni_vmesnik(self, i, n):
         if self.konec_igre() == 0: 
             if self.naredi_potezo_igralec(i, n) == False:
                 raise IndexError("Neveljavna poteza")
 
+            if self.konec_igre() > 0:
+                self.zmagovalec = self.konec_igre()
+                return
+
             self.naredi_potezo_racunalnik()
+
+
 
 
 
