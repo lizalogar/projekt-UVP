@@ -500,16 +500,18 @@ class Igra:
         
 
     def igraj_spletni_vmesnik(self, i, n):
-        if self.konec_igre() == 0: 
-            if self.naredi_potezo_igralec(i, n) == False:
-                raise IndexError("Neveljavna poteza")
+        if self.naredi_potezo_igralec(i, n) == False:
+            raise IndexError("Neveljavna poteza")
 
-            if self.konec_igre() > 0:
-                self.zmagovalec = self.konec_igre()
-                return
+        if self.konec_igre() > 0:
+            self.zmagovalec = self.konec_igre()
+            return
 
-            self.naredi_potezo_racunalnik()
-
+        self.naredi_potezo_racunalnik()
+        if self.konec_igre() > 0:
+            self.zmagovalec = self.konec_igre()
+            return
+        
 
 
 

@@ -27,23 +27,36 @@ def igra_get():
 @bottle.post("/igra/")
 def igra_post():
     try:
-        print('zmagovalec', igra_pokanje_balonckov.zmagovalec, 'konec igre', igra_pokanje_balonckov.konec_igre())
-        if igra_pokanje_balonckov.konec_igre() == 1:
-            bottle.redirect("/koncna_stran_poraz/")
-        elif igra_pokanje_balonckov.konec_igre() == 2:
-            bottle.redirect("/koncna_stran_zmaga/")
 
-        vrstica = int(bottle.request.forms.get("vrstica")) - 1
-        stevilka = int(bottle.request.forms.get("baloni"))
+        if igra_pokanje_balonckov.kdo_je_na_vrsti == 1:
+            igra_pokanje_balonckov.naredi_potezo_racunalnik()
 
-        igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
-        print('zmagovalec', igra_pokanje_balonckov.zmagovalec, 'konec igre', igra_pokanje_balonckov.konec_igre())
-        if igra_pokanje_balonckov.konec_igre() == 1:
-            bottle.redirect("/koncna_stran_poraz/")
-        elif igra_pokanje_balonckov.konec_igre() == 2:
-            bottle.redirect("/koncna_stran_zmaga/")
-        else:
-            bottle.redirect("/igra/")
+            if igra_pokanje_balonckov.zmagovalec == 1:
+                print('poraz')
+                bottle.redirect("/koncna_stran_poraz/")
+            elif igra_pokanje_balonckov.zmagovalec == 2:
+                print('zmaga')
+                bottle.redirect("/koncna_stran_zmaga/")
+            else:
+                print('igra naprej')
+                bottle.redirect("/igra/")
+            
+        elif igra_pokanje_balonckov.kdo_je_na_vrsti == 2:
+            vrstica = int(bottle.request.forms.get("vrstica")) - 1
+            stevilka = int(bottle.request.forms.get("baloni"))
+
+            igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
+
+            if igra_pokanje_balonckov.zmagovalec == 1:
+                print('poraz')
+                bottle.redirect("/koncna_stran_poraz/")
+            elif igra_pokanje_balonckov.zmagovalec == 2:
+                print('zmaga')
+                bottle.redirect("/koncna_stran_zmaga/")
+            else:
+                print('igra naprej')
+                bottle.redirect("/igra/")
+
     except (IndexError, ValueError):
         return bottle.template("igra.html", stanje = igra_pokanje_balonckov.baloni, napaka="Neveljavna poteza! Poskusi ponovno.")    
 
