@@ -463,7 +463,6 @@ class Igra:
 
     # funkcija vrne 1, ce zmaga racunalnik, 2 ce zmaga igralec in 0 ce igre se ni konec
     def konec_igre(self):
-        # print('baloni', self.st_balonov_v_vrstici, 'kdo je na vrsti', self.kdo_je_na_vrsti)
         if sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 2:
             return 1
         elif sum(self.st_balonov_v_vrstici) == 1 and self.kdo_je_na_vrsti == 1:
@@ -473,8 +472,6 @@ class Igra:
 
 
     def igraj(self):
-        # self.kdo_je_na_vrsti = random.randint(1, 2) 
-
         print('------------------------')
 
         if self.kdo_je_na_vrsti == 1:

@@ -32,13 +32,10 @@ def igra_post():
             igra_pokanje_balonckov.naredi_potezo_racunalnik()
 
             if igra_pokanje_balonckov.zmagovalec == 1:
-                print('poraz')
                 bottle.redirect("/koncna_stran_poraz/")
             elif igra_pokanje_balonckov.zmagovalec == 2:
-                print('zmaga')
                 bottle.redirect("/koncna_stran_zmaga/")
             else:
-                print('igra naprej')
                 bottle.redirect("/igra/")
             
         elif igra_pokanje_balonckov.kdo_je_na_vrsti == 2:
@@ -48,13 +45,10 @@ def igra_post():
             igra_pokanje_balonckov.igraj_spletni_vmesnik(vrstica, stevilka)
 
             if igra_pokanje_balonckov.zmagovalec == 1:
-                print('poraz')
                 bottle.redirect("/koncna_stran_poraz/")
             elif igra_pokanje_balonckov.zmagovalec == 2:
-                print('zmaga')
                 bottle.redirect("/koncna_stran_zmaga/")
             else:
-                print('igra naprej')
                 bottle.redirect("/igra/")
 
     except (IndexError, ValueError):
