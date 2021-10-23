@@ -1,4 +1,4 @@
-# Logična igra pokanja balončkov.
+# Logična igra pokanja balončkov
 
 ## Navodila za zagon programa
 Datoteke iz repozitorija naložimo na računalnik in jih odpremo s programom VS Code. 
